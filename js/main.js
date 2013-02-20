@@ -22,7 +22,7 @@ $(function(){
       $('#json_analisys_zone').submit(re_generate_scala);
       var o = null;
       try{
-         o = eval($(e.target).find('textarea').val());
+         o = JSON.parse($(e.target).find('textarea').val());
       }catch(e){
          $('#alertplace').append(t.error({value:'The json root is invalid...'}));
          return 1;
@@ -45,6 +45,9 @@ $(function(){
       analyse_object(o, 'r00tJsonObject');
       
       generate_scala($('#classesplace'));
+      
+      $('#alertplace').append(t.info({value:$('#classesplace div.one_class').length+' case class generated'}));
+      
       
       $('input.class_name').change(maj_name);
       
@@ -124,10 +127,42 @@ var analyse_object = function(o, oname){
       }
       
       if(_.isObject(value) && !_.isArray(value)){
+          if(is_value_consistent(value)){
+             list='Map';
+             
+             for(var i in value){
+                var ts2 = "ERRORFOUND";
+                var vv = value[i];
+                if(_.isString(vv)){
+                   ts2 = "String";
+                }
+                if(_.isNumber(vv)){
+                   ts2 = "Double";
+                }
+                if(_.isBoolean(vv)){
+                   ts2 = "Boolean";
+                }
+                if(_.isDate(vv)){
+                   ts2 = "Date";
+                }
+                if(_.isObject(vv)){
+                   ts2 = "Object";
+                   sha = generate_signature(vv);
+                   disabled = "disabled";
+                   ts="Map[String,"+generate_name(key)+"]";
+                   analyse_object(vv, key);
+                }
+                if(_.isArray(vv)){
+                   ts2 = "Array";
+                }
+                break;
+             }
+          }else{
          ts = generate_name(key);
          disabled = "disabled";
          sha = generate_signature(value);
          analyse_object(value, key);
+         }
       }
      
       
@@ -164,7 +199,7 @@ var maj_name = function(e){
    var elem = $(e.target);
    var tochange = $('div.ul input[data-signature-class="'+elem.attr('data-signature-class')+'"]');
    tochange.filter('input[data-list=""]').val(elem.val());
-   tochange.filter('input[data-list!=""]').each(function(i){
+   tochange.filter('input[data-list="List"]').each(function(i){
       var ee = $(this);
       ee.val(ee.attr('data-list')+'['+elem.val()+']');
    });
