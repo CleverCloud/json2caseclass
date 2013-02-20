@@ -43,3 +43,5 @@ json 2 case class can generate
 
 Due to the arity limitation of 22 values, some JSON objects can't be encoded with case classes.
 A Map[String,T] fallback is on the works.
+
+The code is on the project but not activated : need a UI support to choose between map and object
