@@ -64,7 +64,7 @@ var analyse_object = function(o, oname){
    var elem = $(t.one_class({oname:oname, sha: sign}));
    var elem_u = elem.find('div.ul');
    if(_.size(o) > 22){
-      $('#alertplace').append(t.error({value:'the '+ oname + ' class is exceding 22 fields, generated but it will not work'}));
+      $('#alertplace').append(t.error({value:'the '+ oname + ' class is exceding 22 fields, generated but it will not work, due to the Product arity limitation'}));
    }
    
    
@@ -94,7 +94,7 @@ var analyse_object = function(o, oname){
             disabled = "disabled";
             ts = generate_name(list + '['+generate_name(key)+']');
             if(_.size(value) == 0){
-               $('#alertplace').append(t.error({value:'the '+ oname +' '+key+ ' field is an array with no item : cannot analyse'}));
+               $('#alertplace').append(t.error({value:'the '+ oname +' '+key+ ' field is an empty array : cannot analyse :-('}));
             }else{
                if(_.isObject(value[0])){
                   sha=generate_signature_collection(value);
