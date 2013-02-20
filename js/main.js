@@ -127,6 +127,10 @@ var analyse_object = function(o, oname){
       }
       
       if(_.isObject(value) && !_.isArray(value)){
+         /* THERE IS THE MAP CODE 
+         
+         looking for a good way to choose between map and object
+         
           if(is_value_consistent(value)){
              list='Map';
              
@@ -160,11 +164,12 @@ var analyse_object = function(o, oname){
                 break;
              }
           }else{
+          */
          ts = generate_name(key);
          disabled = "disabled";
          sha = generate_signature(value);
          analyse_object(value, key);
-         }
+      //   }
       }
      
       
