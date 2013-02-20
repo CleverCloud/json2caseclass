@@ -136,7 +136,11 @@ var generate_scala = function(el){
       value = $(value);
       var props = _.map(value.find('.li'), function(v, k, l){ 
          var v = $(v);
-         return v.find('label').text() + ':' + v.find('input.typescala').val(); 
+         var sst = v.find('input.typescala').val();
+          if ( v.find('input.optional_value[type="checkbox"]').prop("checked") ){
+             sst = 'Option['+sst+']';
+          } 
+         return v.find('label.keyname').text() + ':' + sst; 
       }, this);
       content += t.one_scala_cclass({cname:value.find('input.class_name').val(), ccontent: props.join(', ')}) + '\n';
    }, this); 
@@ -207,10 +211,10 @@ var t = {
          +'<%= value %>'
          +'</div>'),
    one_line :  _.template('<div class="li control-group">'
-         +'<label class="control-label"><%= name %></label> ' 
+         +'<label class="keyname control-label"><%= name %></label> ' 
          +'<div class="controls">' 
          +'<div class="input-append"><input class="typescala" <%= disabled %> type="text" data-signature-class="<%= sha %>" data-list="<%= list %>" value="<%= typescala %>" />'
-         +' <span class="add-on"><input type="checkbox" value="" id="chkb_<%= name %>" /><label class="label_chkbr" for="chkb_<%= name %>"> optional</label></span>'
+         +' <span class="add-on"><input class="optional_value" type="checkbox" value="" id="chkb_<%= name %>" /><label class="label_chkbr" for="chkb_<%= name %>"> optional</label></span>'
          +'</div>'
          +'</div>'
          +'</div>'
