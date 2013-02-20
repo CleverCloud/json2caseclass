@@ -44,6 +44,8 @@ var analyse_object = function(o, oname){
    var elem_u = elem.find('ul');
    
    _.each(o, function(value, key, list){
+      
+      
       elem_u.append(t.one_line({name:key,typescala:'dummy'}));
    }, this); 
    
