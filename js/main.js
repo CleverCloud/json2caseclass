@@ -145,6 +145,8 @@ var analyse_object = function(o, oname){
                 if(_.isDate(vv)){
                    ts2 = "Date";
                 }
+                ts="Map[String,"+ts2+"]";
+                
                 if(_.isObject(vv)){
                    ts2 = "Object";
                    sha = generate_signature(vv);
