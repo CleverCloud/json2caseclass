@@ -60,10 +60,9 @@ var t = {
          +'<button type="button" class="close" data-dismiss="alert">&times;</button>'
          +'<%= value %>'
          +'</div>'),
-   oname :  _.template('<input type="text" value="<%= value %>" />'),
    one_class :  _.template('<div id="class_<%= oname %>" class="one_class">'
          +'<input type="text" value="<%= oname %>" />'
          +'<ul></ul>'
-         +'</div>'),
+         +'</div>')
 
 };
