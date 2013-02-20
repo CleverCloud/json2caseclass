@@ -1,6 +1,5 @@
 $(function(){
    $("#caseclassform textarea").change(function(e){
-      console.log('dsfgdsfgdfg');
       $('#mycodeis').html(t.scala_code({code:$(e.target).val()}));
       sh_highlightDocument();
    });
@@ -27,7 +26,6 @@ $(function(){
          $('#alertplace').append(t.error({value:'The json root is invalid...'}));
          return 1;
       }
-      console.log(o);
       
       if(_.isArray(o)){
          $('#alertplace').append(t.alert({value:'The json root is an array, only the first entity will be analyse...'}));
@@ -62,7 +60,7 @@ var analyse_object = function(o, oname){
    oname = generate_name(oname);
    var sign = generate_signature(o);
    if($('#class_'+sign).length > 0){
-      console.log('class already analyse');
+   //   console.log('class already analyse');
    }else{
    var elem = $(t.one_class({oname:oname, sha: sign}));
    var elem_u = elem.find('div.ul');
