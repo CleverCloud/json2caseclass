@@ -46,6 +46,9 @@ $(function(){
       
       $('#alertplace').append(t.info({value:$('#classesplace div.one_class').length+' case class generated'}));
       
+      $('input.class_name').each(function(i,ii){
+         maj_name({target:ii});
+      });
       
       $('input.class_name').change(maj_name);
       
@@ -207,6 +210,10 @@ var maj_name = function(e){
    tochange.filter('input[data-list="List"]').each(function(i){
       var ee = $(this);
       ee.val(ee.attr('data-list')+'['+elem.val()+']');
+   });
+   tochange.filter('input[data-list="Map"]').each(function(i){
+      var ee = $(this);
+      ee.val(ee.attr('data-list')+'[Map,'+elem.val()+']');
    });
 };
 
