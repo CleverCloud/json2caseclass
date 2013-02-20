@@ -209,11 +209,11 @@ var generate_name = function(oname){
 var t = {
    alert :  _.template('<div class="alert">'
          +'<button type="button" class="close" data-dismiss="alert">&times;</button>'
-         +'<%= value %>'
+         +'<i class="icon-warning-sign"></i> <%= value %>'
          +'</div>'),
    error :  _.template('<div class="alert alert-error">'
          +'<button type="button" class="close" data-dismiss="alert">&times;</button>'
-         +'<%= value %>'
+         +'<i class="icon-warning-sign"></i> <%= value %>'
          +'</div>'),
    info :  _.template('<div class="alert alert-info">'
          +'<button type="button" class="close" data-dismiss="alert">&times;</button>'
