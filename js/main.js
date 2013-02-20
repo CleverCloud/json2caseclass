@@ -234,7 +234,7 @@ var t = {
          +''),         
    one_class :  _.template('<div id="class_<%= sha %>" class="one_class">'
          +'<fieldset>'
-         +'<i class="icon-leaf"></i> <input class="class_name" data-signature-class="<%= sha %>" type="text" value="<%= oname %>" />'
+         +'<div class="class_title"><i class="icon-leaf"></i> <input class="class_name" data-signature-class="<%= sha %>" type="text" value="<%= oname %>" /></div>'
          +'<div class="ul"></div>'
          +'</fieldset>'
          +'</div>'),        
