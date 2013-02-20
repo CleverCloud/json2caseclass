@@ -40,10 +40,11 @@ $(function(){
 
 var analyse_object = function(o, oname){
    
-   var elem = t.one_class({oname:oname});
+   var elem = $(t.one_class({oname:oname}));
+   var elem_u = elem.find('ul');
    
    _.each(o, function(value, key, list){
-      
+      elem_u.append(t.one_line({name:key,typescala:'dummy'}));
    }, this); 
    
    $('#classesplace').append(elem);
@@ -60,6 +61,10 @@ var t = {
          +'<button type="button" class="close" data-dismiss="alert">&times;</button>'
          +'<%= value %>'
          +'</div>'),
+   one_line :  _.template('<li>'
+         +'<%= name %> : ' 
+         +'<%= typescala %>'
+         +'</li>'),         
    one_class :  _.template('<div id="class_<%= oname %>" class="one_class">'
          +'<input type="text" value="<%= oname %>" />'
          +'<ul></ul>'
