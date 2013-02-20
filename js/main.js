@@ -60,6 +60,7 @@ var analyse_object = function(o, oname){
    _.each(o, function(value, key, list){
       var ts = "String";
       var sha = "";
+      var list = "";
       var disabled = "";
       
       
@@ -72,9 +73,43 @@ var analyse_object = function(o, oname){
       if(_.isBoolean(value)){
          ts = "Boolean";
       }
+      if(_.isDate(value)){
+         ts = "Date";
+      }
       
       if(_.isArray(value)){
-         ts = "ARRAY";
+         if(is_value_consistent(value)){        
+            list='List';
+            disabled = "disabled";
+            ts = generate_name(list + '['+generate_name(key)+']');
+            if(_.size(value) == 0){
+               $('#alertplace').append(t.error({value:'the '+ oname +' '+key+ ' field is an array with no item : cannot analyse'}));
+            }else{
+               if(_.isObject(value[0])){
+                  sha=generate_signature_collection(value);
+                  analyse_object(value[0], key);
+               }else{
+                  var vv = value[0];
+                  var ts2 = "String"
+                  disabled = "";    
+                  if(_.isString(vv)){
+                     ts2 = "String";
+                  }
+                  if(_.isNumber(vv)){
+                     ts2 = "Double";
+                  }
+                  if(_.isBoolean(vv)){
+                     ts2 = "Boolean";
+                  }
+                  if(_.isDate(vv)){
+                     ts2 = "Date";
+                  }
+                  ts = generate_name(list + '['+ts2+']');
+               }
+            }
+         }else{
+            $('#alertplace').append(t.error({value:'the '+ oname +' '+key+ ' field is prentending an array but not consistent'}));
+         }
       }
       
       if(_.isObject(value) && !_.isArray(value)){
@@ -83,12 +118,10 @@ var analyse_object = function(o, oname){
          sha = generate_signature(value);
          analyse_object(value, key);
       }
-      if(_.isDate(value)){
-         ts = "Date";
-      }
+     
       
       
-      elem_u.append(t.one_line({name:key,typescala:ts,sha:sha,disabled:disabled}));
+      elem_u.append(t.one_line({name:key,typescala:ts,sha:sha,disabled:disabled,list:list}));
    }, this); 
    elem.append(t.info({value:elem_u.find('.li').length+' fields'}));
    
@@ -112,7 +145,12 @@ var generate_scala = function(el){
 
 var maj_name = function(e){
    var elem = $(e.target);
-   $('input[data-signature-class="'+elem.attr('data-signature-class')+'"]').val(elem.val());
+   var tochange = $('div.ul input[data-signature-class="'+elem.attr('data-signature-class')+'"]');
+   tochange.filter('input[data-list=""]').val(elem.val());
+   tochange.filter('input[data-list!=""]').each(function(i){
+      var ee = $(this);
+      ee.val(ee.attr('data-list')+'['+elem.val()+']');
+   });
 };
 
 var re_generate_scala =function(e){
@@ -120,8 +158,34 @@ var re_generate_scala =function(e){
       generate_scala($('#classesplace'));
 };
 
+var is_value_consistent = function(o){
+   if(_.size(o) == 0){
+      return true;
+   }else{
+   if(!_.isArray(o)){
+      o = _.values(o);
+   } 
+   var n = o[0];
+   var nn = (_.isObject(n) ? generate_signature(n) : typeof n);
+   return _.every(o, function(n){ return (_.isObject(n) ? generate_signature(n) : typeof n) == nn; }, this);
+   }
+};
+var generate_signature_collection =function(o){
+   if(_.size(o) == 0){
+      return 0;
+   }else{
+   if(!_.isArray(o)){
+      o = _.values(o);
+   } 
+   return generate_signature(o[0]);
+}  
+};
 var generate_signature =function(o){
-   return SHA1(_.map(_.keys(o), function(n){ return n.toLowerCase(); }).sort().join('|'));
+   if(_.isObject(o)){
+      return SHA1(_.map(_.keys(o), function(n){ return n.toLowerCase(); }).sort().join('|'));
+   }else{
+      return SHA1(_.map(o, function(n){ return typeof n; }).sort().join('|'));
+   }
 };
 
 var generate_name = function(oname){
@@ -145,7 +209,7 @@ var t = {
    one_line :  _.template('<div class="li control-group">'
          +'<label class="control-label"><%= name %></label> ' 
          +'<div class="controls">' 
-         +'<input class="typescala" <%= disabled %> type="text" data-signature-class="<%= sha %>" value="<%= typescala %>" />'
+         +'<input class="typescala" <%= disabled %> type="text" data-signature-class="<%= sha %>" data-list="<%= list %>" value="<%= typescala %>" />'
          +'</div>'
          +'</div>'
          +''),         
