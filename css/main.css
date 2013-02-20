@@ -9,3 +9,9 @@ input.class_name{
    margin:10px;
    border-width:2px;
 }
+
+label.label_chkbr{
+font-style:italic;
+margin-left:2px;
+float:right;
+}

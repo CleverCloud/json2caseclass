@@ -209,7 +209,9 @@ var t = {
    one_line :  _.template('<div class="li control-group">'
          +'<label class="control-label"><%= name %></label> ' 
          +'<div class="controls">' 
-         +'<input class="typescala" <%= disabled %> type="text" data-signature-class="<%= sha %>" data-list="<%= list %>" value="<%= typescala %>" />'
+         +'<div class="input-append"><input class="typescala" <%= disabled %> type="text" data-signature-class="<%= sha %>" data-list="<%= list %>" value="<%= typescala %>" />'
+         +' <span class="add-on"><input type="checkbox" value="" id="chkb_<%= name %>" /><label class="label_chkbr" for="chkb_<%= name %>"> optional</label></span>'
+         +'</div>'
          +'</div>'
          +'</div>'
          +''),         
