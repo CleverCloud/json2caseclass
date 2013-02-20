@@ -60,8 +60,8 @@ var analyse_object = function(o, oname){
    var elem = $(t.one_class({oname:oname, sha: sign}));
    var elem_u = elem.find('div.ul');
    if(_.size(o) > 22){
-      $('#alertplace').append(t.error({value:'the '+ oname + ' class is exceding 22 fields'}));
-   }else{
+      $('#alertplace').append(t.error({value:'the '+ oname + ' class is exceding 22 fields, generated but it will not work'}));
+   }
    
    
    _.each(o, function(value, key, list){
@@ -134,7 +134,7 @@ var analyse_object = function(o, oname){
    
    $('#classesplace').append(elem);
    }
-   }
+   
 };
 
 var generate_scala = function(el){
