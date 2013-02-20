@@ -1,4 +1,11 @@
 $(function(){
+   $("#caseclassform textarea").change(function(e){
+      console.log('dsfgdsfgdfg');
+      $('#mycodeis').html(t.scala_code({code:$(e.target).val()}));
+      sh_highlightDocument();
+   });
+});
+$(function(){
    $('#pastejsonform').submit(function(e){
       e.preventDefault();
       $('#optionzone').html('<form class="form-horizontal" id="json_analisys_zone">'
@@ -145,6 +152,8 @@ var generate_scala = function(el){
       content += t.one_scala_cclass({cname:value.find('input.class_name').val(), ccontent: props.join(', ')}) + '\n';
    }, this); 
    $('#caseclassform textarea').val(content);
+   $('#mycodeis').html(t.scala_code({code:content}));
+   sh_highlightDocument();
 };
 
 var maj_name = function(e){
@@ -226,6 +235,7 @@ var t = {
          +'</fieldset>'
          +'</div>'),        
    one_scala_cclass : _.template('case class <%= cname %>(<%= ccontent %>)'),
-   one_scala_props : _.template('<%= pname %>\:<%= ptype %>')
+   one_scala_props : _.template('<%= pname %>\:<%= ptype %>'),
+   scala_code : _.template('<pre class="sh_scala"><%= code %></pre>')
 
 };
