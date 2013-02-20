@@ -10,8 +10,27 @@ input.class_name{
    border-width:2px;
 }
 
+input.optional_value{
+float:left;
+margin-right:3px;
+}
+
 label.label_chkbr{
 font-style:italic;
 margin-left:2px;
 float:right;
+}
+
+#logo{
+height:20px;
+}
+
+.hero-unit{
+margin-top:20px;
+}
+#scalalogo{
+margin:10px;
+}
+#about{
+font-style:italic;
 }
