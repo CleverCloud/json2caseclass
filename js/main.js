@@ -6,9 +6,11 @@ $(function(){
          +'                 <legend>Json analysis</legend>'
          +'                 <div id="alertplace"></div>'
          +'                 <div id="classesplace"></div>'
+         +'                 <button type="submit" class=" pull-right btn btn-primary"><i class="icon-bolt"></i> re-generate</button>'
          +'                 </fieldset>'
          +'                 </form>');
          
+      $('#json_analisys_zone').submit(re_generate_scala);
       var o = null;
       try{
          o = eval($(e.target).find('textarea').val());
@@ -33,6 +35,7 @@ $(function(){
       
       analyse_object(o, 'r00t');
       
+      generate_scala($('#classesplace'));
       
    });
 
@@ -53,6 +56,20 @@ var analyse_object = function(o, oname){
    
 };
 
+var generate_scala = function(el){
+   var content = "";
+   _.each(el.find('.one_class'), function(value, key, list){
+      value = $(value)
+      content += t.one_scala_cclass({cname:value.find('input.class_name').val(), ccontent:''}) + '\n';
+   }, this); 
+   $('#caseclassform textarea').val(content);
+};
+
+var re_generate_scala =function(e){
+      e.preventDefault();
+      generate_scala($('#classesplace'));
+};
+
 
 var t = {
    alert :  _.template('<div class="alert">'
@@ -68,8 +85,9 @@ var t = {
          +'<%= typescala %>'
          +'</li>'),         
    one_class :  _.template('<div id="class_<%= oname %>" class="one_class">'
-         +'<input type="text" value="<%= oname %>" />'
+         +'<input class="class_name" type="text" value="<%= oname %>" />'
          +'<ul></ul>'
-         +'</div>')
+         +'</div>'),
+   one_scala_cclass : _.template('case class <%= cname %>(<%= ccontent %>)')
 
 };
