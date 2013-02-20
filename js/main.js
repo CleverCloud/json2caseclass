@@ -174,7 +174,7 @@ var analyse_object = function(o, oname){
      
       
       
-      elem_u.append(t.one_line({name:key,typescala:ts,sha:sha,disabled:disabled,list:list}));
+      elem_u.append(t.one_line({name:key,typescala:ts,sha:sha,disabled:disabled,list:list, oname:oname}));
    }, this); 
    elem.append(t.info({value:elem_u.find('.li').length+' fields'}));
    
@@ -269,7 +269,7 @@ var t = {
          +'<label class="keyname control-label"><%= name %></label> ' 
          +'<div class="controls">' 
          +'<div class="input-append"><input class="typescala" <%= disabled %> type="text" data-signature-class="<%= sha %>" data-list="<%= list %>" value="<%= typescala %>" />'
-         +' <span class="add-on"><input class="optional_value" type="checkbox" value="" id="chkb_<%= name %>" /><label class="label_chkbr" for="chkb_<%= name %>"> optional</label></span>'
+         +' <span class="add-on"><input class="optional_value" type="checkbox" value="" id="chkb_<%= oname %>_<%= name %>" /><label class="label_chkbr" for="chkb_<%= oname %>_<%= name %>"> optional</label></span>'
          +'</div>'
          +'</div>'
          +'</div>'
