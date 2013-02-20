@@ -48,13 +48,14 @@ $(function(){
       
       analyse_object(o, 'r00tJsonObject');
       
-      generate_scala($('#classesplace'));
       
       $('#alertplace').append(t.info({value:$('#classesplace div.one_class').length+' case class generated'}));
       
       $('input.class_name').each(function(i,ii){
          maj_name({target:ii});
       });
+      
+      generate_scala($('#classesplace'));
       
       $('input.class_name').change(maj_name);
       
