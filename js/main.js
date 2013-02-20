@@ -42,7 +42,7 @@ $(function(){
       
       
       
-      analyse_object(o, 'r00t');
+      analyse_object(o, 'r00tJsonObject');
       
       generate_scala($('#classesplace'));
       
