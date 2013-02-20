@@ -67,7 +67,7 @@ var analyse_object = function(o, oname){
          ts = "String";
       }
       if(_.isNumber(value)){
-         ts = "Long";
+         ts = "Double";
       }
       if(_.isBoolean(value)){
          ts = "Boolean";
