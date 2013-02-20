@@ -39,7 +39,7 @@ $(function(){
 });
 
 var analyse_object = function(o, oname){
-   
+   oname = (oname.charAt(0).toUpperCase() + oname.substring(1));
    var elem = $(t.one_class({oname:oname}));
    var elem_u = elem.find('ul');
    
