@@ -35,6 +35,8 @@ $(function(){
       
       generate_scala($('#classesplace'));
       
+      $('input.class_name').change(maj_name);
+      
       $('#classesplace input').change(re_generate_scala);
       
       
@@ -108,6 +110,11 @@ var generate_scala = function(el){
    $('#caseclassform textarea').val(content);
 };
 
+var maj_name = function(e){
+   var elem = $(e.target);
+   $('input[data-signature-class="'+elem.attr('data-signature-class')+'"]').val(elem.val());
+};
+
 var re_generate_scala =function(e){
       e.preventDefault();
       generate_scala($('#classesplace'));
@@ -144,7 +151,7 @@ var t = {
          +''),         
    one_class :  _.template('<div id="class_<%= sha %>" class="one_class">'
          +'<fieldset>'
-         +'<i class="icon-bookmark"></i> <input class="class_name" type="text" value="<%= oname %>" />'
+         +'<i class="icon-bookmark"></i> <input class="class_name" data-signature-class="<%= sha %>" type="text" value="<%= oname %>" />'
          +'<div class="ul"></div>'
          +'</fieldset>'
          +'</div>'),        
