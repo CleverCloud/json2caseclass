@@ -31,10 +31,25 @@ $(function(){
       
       
       
+      analyse_object(o, 'r00t');
+      
       
    });
 
 });
+
+var analyse_object = function(o, oname){
+   
+   var elem = t.one_class({oname:oname});
+   
+   _.each(o, function(value, key, list){
+      
+   }, this); 
+   
+   $('#classesplace').append(elem);
+   
+};
+
 
 var t = {
    alert :  _.template('<div class="alert">'
@@ -44,5 +59,11 @@ var t = {
    error :  _.template('<div class="alert alert-error">'
          +'<button type="button" class="close" data-dismiss="alert">&times;</button>'
          +'<%= value %>'
-         +'</div>')
+         +'</div>'),
+   oname :  _.template('<input type="text" value="<%= value %>" />'),
+   one_class :  _.template('<div id="class_<%= oname %>" class="one_class">'
+         +'<input type="text" value="<%= oname %>" />'
+         +'<ul></ul>'
+         +'</div>'),
+
 };
