@@ -37,6 +37,9 @@ $(function(){
       
       generate_scala($('#classesplace'));
       
+      $('#classesplace input').change(re_generate_scala);
+      
+      
    });
 
 });
@@ -47,9 +50,18 @@ var analyse_object = function(o, oname){
    var elem_u = elem.find('ul');
    
    _.each(o, function(value, key, list){
+      var ts = "String";
       
       
-      elem_u.append(t.one_line({name:key,typescala:'dummy'}));
+      if(_.isString(value)){
+         ts = "String";
+      }
+      if(_.isNumber(value)){
+         ts = "Long";
+      }
+       
+      
+      elem_u.append(t.one_line({name:key,typescala:ts}));
    }, this); 
    
    $('#classesplace').append(elem);
@@ -59,8 +71,12 @@ var analyse_object = function(o, oname){
 var generate_scala = function(el){
    var content = "";
    _.each(el.find('.one_class'), function(value, key, list){
-      value = $(value)
-      content += t.one_scala_cclass({cname:value.find('input.class_name').val(), ccontent:''}) + '\n';
+      value = $(value);
+      var props = _.map(value.find('li'), function(v, k, l){ 
+         var v = $(v);
+         return v.find('span.pname').text() + ':' + v.find('input.typescala').val(); 
+      }, this);
+      content += t.one_scala_cclass({cname:value.find('input.class_name').val(), ccontent: props.join(', ')}) + '\n';
    }, this); 
    $('#caseclassform textarea').val(content);
 };
@@ -81,13 +97,14 @@ var t = {
          +'<%= value %>'
          +'</div>'),
    one_line :  _.template('<li>'
-         +'<%= name %> : ' 
-         +'<%= typescala %>'
+         +'<span class="pname"><%= name %></span> : ' 
+         +'<input class="typescala" type="text" value="<%= typescala %>" />'
          +'</li>'),         
    one_class :  _.template('<div id="class_<%= oname %>" class="one_class">'
          +'<input class="class_name" type="text" value="<%= oname %>" />'
          +'<ul></ul>'
-         +'</div>'),
-   one_scala_cclass : _.template('case class <%= cname %>(<%= ccontent %>)')
+         +'</div>'),        
+   one_scala_cclass : _.template('case class <%= cname %>(<%= ccontent %>)'),
+   one_scala_props : _.template('<%= pname %>\:<%= ptype %>')
 
 };
