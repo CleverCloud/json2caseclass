@@ -201,9 +201,9 @@ var generate_scala = function(el){
           if ( v.find('input.optional_value[type="checkbox"]').prop("checked") ){
              sst = 'Option['+sst+']';
           } 
-         return v.find('label.keyname').text() + ':' + sst; 
+         return '  ' + v.find('label.keyname').text() + ': ' + sst; 
       }, this);
-      content += t.one_scala_cclass({cname:value.find('input.class_name').val(), ccontent: props.join(', ')}) + '\n';
+      content += t.one_scala_cclass({cname:value.find('input.class_name').val(), ccontent: props.join(',\n')}) + '\n';
    }, this); 
    $('#caseclassform textarea').val(content);
    $('#mycodeis').html(t.scala_code({code:content}));
@@ -292,7 +292,7 @@ var t = {
          +'<div class="ul"></div>'
          +'</fieldset>'
          +'</div>'),        
-   one_scala_cclass : _.template('case class <%= cname %>(<%= ccontent %>)'),
+   one_scala_cclass : _.template('case class <%= cname %>(\n<%= ccontent %>\n)'),
    one_scala_props : _.template('<%= pname %>\:<%= ptype %>'),
    scala_code : _.template('<pre class="sh_scala"><%= code %></pre>')
 
