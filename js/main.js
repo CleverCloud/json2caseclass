@@ -191,6 +191,14 @@ var analyse_object = function(o, oname){
    
 };
 
+var sanitize_var_name = function(name){
+   if(name.match(/[_a-zA-Z0-9]+/) == name){
+      return name;
+   }else{
+      return '`' + name + '`';
+   }
+}
+
 var generate_scala = function(el){
    var content = "";
    _.each(el.find('.one_class'), function(value, key, list){
@@ -201,7 +209,7 @@ var generate_scala = function(el){
           if ( v.find('input.optional_value[type="checkbox"]').prop("checked") ){
              sst = 'Option['+sst+']';
           } 
-         return '  ' + v.find('label.keyname').text() + ': ' + sst; 
+         return '  ' + sanitize_var_name(v.find('label.keyname').text()) + ': ' + sst;
       }, this);
       content += t.one_scala_cclass({cname:value.find('input.class_name').val(), ccontent: props.join(',\n')}) + '\n';
    }, this); 
