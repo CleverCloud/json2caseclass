@@ -192,7 +192,13 @@ var analyse_object = function(o, oname){
 };
 
 var sanitize_var_name = function(name){
-   if(name.match(/[_a-zA-Z0-9]+/) == name){
+  var reserved_words = 
+    [ 'abstract', 'case', 'catch', 'class', 'def', 'do', 'else', 'extends', 'false', 'final',
+      'finally', 'for', 'forSome', 'if', 'implicit', 'import', 'lazy', 'match', 'new', 'null',
+      'object', 'override', 'package', 'private', 'protected', 'return', 'sealed', 'super', 
+      'this', 'throw', 'trait', 'try', 'true', 'type', 'val', 'var', 'while', 'with', 'yield' ]
+
+   if ((name.match(/[_a-zA-Z0-9]+/) == name) && (! _.contains(reserved_words, name))){
       return name;
    }else{
       return '`' + name + '`';
