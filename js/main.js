@@ -78,6 +78,13 @@ var analyse_object = function(o, oname){
       $('#alertplace').append(t.error({value:'the '+ oname + ' class is exceding 22 fields, generated but it will not work, due to the Product arity limitation'}));
    }
    
+   function isFloat(n) {
+       return n === +n && n !== (n|0);
+   }
+
+   function isInteger(n) {
+       return n === +n && n === (n|0);
+   }
    
    _.each(o, function(value, key, list){
       var ts = "String";
@@ -88,14 +95,15 @@ var analyse_object = function(o, oname){
       
       if(_.isString(value)){
          ts = "String";
-      }
-      if(_.isNumber(value)){
-         ts = "Double";
-      }
-      if(_.isBoolean(value)){
+      }else if(_.isNumber(value)){
+        if (isFloat(value)){
+         ts = "Float";
+        }else if (isInteger(value)){
+         ts = "Int" 
+        }
+      }else if(_.isBoolean(value)){
          ts = "Boolean";
-      }
-      if(_.isDate(value)){
+      }else if(_.isDate(value)){
          ts = "Date";
       }
       
