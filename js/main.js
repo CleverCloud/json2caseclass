@@ -67,7 +67,8 @@ $(function(){
 });
 
 var scala_words =  ['abstract','case','catch','class','def','do','else','extends','false','final','finally','for','forSome','if','implicit','import','lazy','match','new','null','object','override','package','private','protected','return','sealed','super','this','throw','trait','try','true','type','val','var','while','with','yield'];
-var scala_chars = ['-', '_']
+var scala_chars = ['-', '_'];
+var scala_types = ['List', 'Type', 'Meta'];
 
 var analyse_object = function(o, oname){
    oname = generate_name(oname);
@@ -271,7 +272,11 @@ var generate_signature =function(o){
 };
 
 var generate_name = function(oname){
-   return (oname.charAt(0).toUpperCase() + oname.substring(1));
+  var n = (oname.charAt(0).toUpperCase() + oname.substring(1));
+  if(_.contains(scala_types, n)){
+    n += 'Bis';
+  }
+   return n;
 };
 
 
