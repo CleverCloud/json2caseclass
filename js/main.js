@@ -66,9 +66,13 @@ $(function(){
 
 });
 
+// HERE CAN BE SOME CONFIG PLACE
+
 var scala_words =  ['abstract','case','catch','class','def','do','else','extends','false','final','finally','for','forSome','if','implicit','import','lazy','match','new','null','object','override','package','private','protected','return','sealed','super','this','throw','trait','try','true','type','val','var','while','with','yield'];
 var scala_chars = ['-', '_'];
 var scala_types = ['List', 'Type', 'Meta'];
+
+//
 
 var analyse_object = function(o, oname){
    oname = generate_name(oname);
@@ -81,6 +85,7 @@ var analyse_object = function(o, oname){
    if(_.size(o) > 22){
       $('#alertplace').append(t.error({value:'the '+ oname + ' class is exceding 22 fields, generated but it will not work, due to the Product arity limitation'}));
    }
+
 
 
    _.each(o, function(value, key, list){
