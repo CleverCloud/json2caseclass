@@ -70,7 +70,12 @@ $(function(){
 
 var scala_words =  ['abstract','case','catch','class','def','do','else','extends','false','final','finally','for','forSome','if','implicit','import','lazy','match','new','null','object','override','package','private','protected','return','sealed','super','this','throw','trait','try','true','type','val','var','while','with','yield'];
 var scala_chars = ['-', '_'];
-var scala_types = ['List', 'Type', 'Meta'];
+var scala_types = ['List', 'Type', 'Meta', 'Result'];
+
+for(var i in scala_words){
+  var oname = scala_words[i];
+  scala_types.push(oname.charAt(0).toUpperCase() + oname.substring(1));
+}
 
 //
 
