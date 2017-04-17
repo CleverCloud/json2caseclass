@@ -5,7 +5,7 @@ Kickstart your scala API client by turning JSON into case classes.
 
 Try it at <http://json2caseclass.cleverapps.io>
 
-##Use cases
+## Use cases
 
 When interacting with 3rd party json-based APIs from scala, modelling the API's responses with case classes
 can come in handy.
@@ -30,7 +30,7 @@ However it's tedious to manually copy the json structure into case classes.
 
 json 2 case class automatically generates case classes from JSON (if possible).
 
-##Features
+## Features
 
 json 2 case class can generate
 
@@ -39,7 +39,7 @@ json 2 case class can generate
  - scala base types from JSON primitives
  - Option[T] for optional values
 
-##ToDo
+## ToDo
 
 Due to the arity limitation of 22 values, some JSON objects can't be encoded with case classes.
 A Map[String,T] fallback is on the works.
